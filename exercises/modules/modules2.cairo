@@ -1,10 +1,7 @@
-// I AM NOT DONE
 // These modules have some issues, can you fix?
 // Run `starklings hint modules2` or `hint` watch command for a hint.
 
-const YEAR: u16 = 2050;
-
-mod order {
+pub mod order {
     #[derive(Copy, Drop)]
     struct Order {
         name: felt252,
@@ -15,17 +12,19 @@ mod order {
     }
 
     fn new_order(name: felt252, made_by_phone: bool, item: felt252) -> Order {
-        Order { name, year: YEAR, made_by_phone, made_by_email: !made_by_phone, item,  }
+        Order { name, year: 2050_u16, made_by_phone, made_by_email: !made_by_phone, item,  }
     }
 }
 
-mod order_utils {
+pub mod order_utils {
+    use super::order::Order;
+    use super::order;
     fn dummy_phoned_order(name: felt252) -> Order {
-        new_order(name, true, 'item_a')
+        order::new_order(name, true, 'item_a')
     }
 
     fn dummy_emailed_order(name: felt252) -> Order {
-        new_order(name, false, 'item_a')
+        order::new_order(name, false, 'item_a')
     }
 
     fn order_fees(order: Order) -> felt252 {
